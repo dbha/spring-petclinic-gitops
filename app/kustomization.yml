@@ -1,0 +1,29 @@
+images:
+- name: customers
+  newName: ellinj/spring-petclinic-customers-service
+  newTag: 0.21.0
+- digest: sha256:300d7105f523739b19ab0443031925ded753567a51a398e460a2348b3f1b078f
+  name: spring-petclinic-api-gateway
+  newName: reg.ellin.net/dev/spring-petclinic-api-gateway
+- digest: sha256:7458c4316524ba43bcdbd296ffa5cb97e39f306428a49e567f054756f76e70b9
+  name: spring-petclinic-config-server
+  newName: reg.ellin.net/dev/spring-petclinic-config-server
+- digest: sha256:9f015277ab39b7b61a6ea3608d811b996d6f1d4f08cd37c8a650083e78051cc7
+  name: spring-petclinic-httpbin
+  newName: reg.ellin.net/dev/spring-petclinic-httpbin
+- digest: sha256:8053500dfb88379204c9161ecab38ead3cc7473a684570307e21d996722320bf
+  name: spring-petclinic-vets-service
+  newName: reg.ellin.net/dev/spring-petclinic-vets-service
+- digest: sha256:2cb61285fa1657973db1937d7d4295e51a2a15720de24a7c2ca2a24aafa5c6da
+  name: spring-petclinic-visits-service
+  newName: reg.ellin.net/dev/spring-petclinic-visits-service
+resources:
+- config-server-deployment.yml
+- customer-service-deployment.yml
+- gw-service-deployment.yml
+- vets-service-deployment.yml
+- visit-service-deployment.yml
+- tracing-server-deployment.yml
+- httpbin-server-deployment.yml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization

@@ -1,0 +1,40 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: httpbin-service
+spec:
+  selector:
+    app: petclinic
+    component: httpbin
+  type:  ClusterIP
+  ports:
+  - name:  http
+    port:  8080
+    targetPort:  8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpbin-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: petclinic
+      component: httpbin
+  template:
+    metadata:
+      labels:
+        app: petclinic
+        component: httpbin
+    spec:
+      containers:
+      - name: httpbin-service
+        image: spring-petclinic-httpbin
+        env:
+          - name: SPRING_PROFILES_ACTIVE
+            value: docker
+          - name: SERVER_PORT
+            value: "8080"
+        ports:
+            - containerPort: 8080

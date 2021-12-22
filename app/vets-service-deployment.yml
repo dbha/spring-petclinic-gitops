@@ -1,0 +1,45 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: vets-service
+spec:
+  selector:
+    app: petclinic
+    component: vets-service
+  type:  ClusterIP
+  ports:
+  - name:  http
+    port:  8080
+    targetPort:  8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vets-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: petclinic
+      component: vets-service
+  template:
+    metadata:
+      labels:
+        app: petclinic
+        component: vets-service
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        prometheus.io/path: "/actuator/prometheus"
+    spec:
+      containers:
+      - name:  vets-service
+        image:  spring-petclinic-vets-service
+        imagePullPolicy: Always
+        ports:
+            - containerPort: 8080
+        env:
+          - name: SPRING_PROFILES_ACTIVE
+            value: docker
+          - name: SERVER_PORT
+            value: "8080"
